@@ -1,20 +1,17 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+/**
+ * Finanças
+ * 
+ * expo install styled-components
+ * expo install firebase@8.8.1
+ */
+import React from "react";
+import { Cointainer, Texto } from "./src/styles";
+import firebase from './src/services/firebaseConnection';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+export default function App(){
+  return(
+    <Cointainer>
+      <Texto>Finanças</Texto>
+    </Cointainer>
+  )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
