@@ -1,5 +1,5 @@
 <h1 align="center">
-  Sistema de tarefas
+  Finanças
 </h1>
 
 <p align="center">
@@ -14,13 +14,14 @@
 
 
 ## 💻 Projeto
-Aplicativo desenvolvido em React Native, afim de cadastrar e logar usuários utilizando o firebase. Sendo que esses poderão cadastrar, editar ou excluir tarefas.
+Aplicativo desenvolvido em React Native, afim de registrar os gastos.
 
 ## ✨ Tecnologias
 
 -   [ ] React
 -   [ ] Firebase
 -   [ ] Expo
+-   [ ] Styled Components
 
 
 ## 🔖 Executando o projeto
@@ -29,8 +30,8 @@ Utilize o **yarn** ou o **npm install** para instalar as dependências do projet
 Em seguida, inicie o projeto.
 
 ```cl
-git clone https://github.com/Felipe-007/Tarefas.git
-cd Tarefas
+git clone https://github.com/Felipe-007/Financas.git
+cd Financas
 npm i
 expo start
 ```
