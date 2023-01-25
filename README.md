@@ -32,7 +32,7 @@ Em seguida, inicie o projeto.
 ```cl
 git clone https://github.com/Felipe-007/Financas.git
 cd Financas
-npm i
+npm i ou yarn add expo
 expo start
 ```
 
