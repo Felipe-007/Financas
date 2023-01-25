@@ -1,9 +1,10 @@
 /**
  * 
  */
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Platform } from "react-native";
 import { Background, Container, AreaInput, Input, SubmitButton, SubmitText } from "./styles";
+import { AuthContext } from "../../context/auth";  //onde são armazenados os dados do usuário
 
 
 export default function SignUp() {
@@ -11,6 +12,11 @@ export default function SignUp() {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const { user } = useContext(AuthContext)  //onde são armazenados os dados do usuário
+
+  alert(user.nome)
+  alert(user.uid)
 
   return (
     <Background behavior={Platform.OS === 'ios' ? 'padding' : ''} enabled>

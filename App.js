@@ -11,17 +11,19 @@
  */
 import 'react-native-gesture-handler';
 import React from "react";
-import { Cointainer } from "./src/styles";
 import { View, StatusBar } from "react-native";
 import firebase from './src/services/firebaseConnection';
 import Routes from './src/routes';
 import { NavigationContainer } from '@react-navigation/native';
+import Authprovider from './src/context/auth';  //o authprovider repassa tudo o que tem dentro dele, e por causa do createContext ele poderá ter acesso ao valor do USER
 
-export default function App(){
-  return(
+export default function App() {
+  return (
     <NavigationContainer>
-      <StatusBar backgroundColor="#131313" barStyle="light-content" />
-      <Routes />
+      <Authprovider>
+        <StatusBar backgroundColor="#131313" barStyle="light-content" />
+        <Routes />
+      </Authprovider>
     </NavigationContainer>
   )
 }

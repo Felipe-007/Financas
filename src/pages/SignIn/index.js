@@ -1,10 +1,11 @@
 /**
  * 
  */
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Platform } from "react-native";
 import { Background, Container, Logo, AreaInput, Input, SubmitButton, SubmitText, Link, LinkText } from "./styles";
 import { useNavigation } from "@react-navigation/native";
+import { AuthContext } from "../../context/auth";  //onde são armazenados os dados do usuário
 
 export default function SignIn() {
 
@@ -12,6 +13,12 @@ export default function SignIn() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const { user } = useContext(AuthContext)  //onde são armazenados os dados do usuário
+
+  function handleLogin(){
+    alert("Nome: " + user.nome + "uid: " + user.uid) //pega os dados do context/auth.js
+  }
 
   return (
     <Background behavior={Platform.OS === 'ios' ? 'padding' : ''} enabled>
@@ -38,7 +45,7 @@ export default function SignIn() {
           />
         </AreaInput>
 
-        <SubmitButton>
+        <SubmitButton onPress={handleLogin}>
           <SubmitText>Acessar</SubmitText>
         </SubmitButton>
 
