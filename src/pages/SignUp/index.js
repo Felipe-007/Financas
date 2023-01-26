@@ -15,20 +15,23 @@ export default function SignUp() {
 
   const { signUp } = useContext(AuthContext);  //signUp funcao que vem do context/auth.js 
 
-  function handleSignUp(){
+  function handleSignUp() {
     signUp(email, password, nome)
   }
 
   return (
-    <Background behavior={Platform.OS === 'ios' ? 'padding' : ''} enabled>
-      <Container>        
+    <Background>
+      <Container
+        behavior={Platform.OS === 'ios' ? 'padding' : ''}
+        enabled
+      >
         <AreaInput>
           <Input
             placeholder="Nome"
             autoCorrect={false}
             autoCapitalize="none"
             value={nome}
-            onChangeText={ (text) => setEmail(setNome) }
+            onChangeText={ (text) => setNome(text) }
           />
         </AreaInput>
 
@@ -38,7 +41,7 @@ export default function SignUp() {
             autoCorrect={false}
             autoCapitalize="none"
             value={email}
-            onChangeText={ (text) => setEmail(text) }
+            onChangeText={(text) => setEmail(text)}
           />
         </AreaInput>
 
@@ -48,7 +51,7 @@ export default function SignUp() {
             autoCorrect={false}
             autoCapitalize="none"
             value={password}
-            onChangeText={ (text) => setPassword(text) }
+            onChangeText={(text) => setPassword(text)}
           />
         </AreaInput>
 

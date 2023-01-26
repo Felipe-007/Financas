@@ -15,15 +15,17 @@ import { View, StatusBar } from "react-native";
 import firebase from './src/services/firebaseConnection';
 import Routes from './src/routes';
 import { NavigationContainer } from '@react-navigation/native';
-import Authprovider from './src/contexts/auth';  //o authprovider repassa tudo o que tem dentro dele, e por causa do createContext ele poderá ter acesso ao valor do USER
+import AuthProvider from './src/contexts/auth';  //o authprovider repassa tudo o que tem dentro dele, e por causa do createContext ele poderá ter acesso ao valor do USER
+
+console.disableYellowBox=true;
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Authprovider>
+      <AuthProvider>
         <StatusBar backgroundColor="#131313" barStyle="light-content" />
         <Routes />
-      </Authprovider>
+      </AuthProvider>
     </NavigationContainer>
   )
 }

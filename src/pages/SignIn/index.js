@@ -14,13 +14,18 @@ export default function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  function handleLogin(){
-    alert("ok") //pega os dados do context/auth.js
+  const { signIn } = useContext(AuthContext);
+
+  function handleLogin() {
+    signIn(email, password)
   }
 
   return (
-    <Background behavior={Platform.OS === 'ios' ? 'padding' : ''} enabled>
-      <Container>
+    <Background>
+      <Container
+        behavior={Platform.OS === 'ios' ? 'padding' : ''}
+        enabled
+      >
         <Logo source={require('../../assets/Logo.png')} />
 
         <AreaInput>
@@ -29,7 +34,7 @@ export default function SignIn() {
             autoCorrect={false}
             autoCapitalize="none"
             value={email}
-            onChangeText={ (text) => setEmail(text) }
+            onChangeText={(text) => setEmail(text)}
           />
         </AreaInput>
 
@@ -39,7 +44,7 @@ export default function SignIn() {
             autoCorrect={false}
             autoCapitalize="none"
             value={password}
-            onChangeText={ (text) => setPassword(text) }
+            onChangeText={(text) => setPassword(text)}
           />
         </AreaInput>
 
@@ -47,7 +52,7 @@ export default function SignIn() {
           <SubmitText>Acessar</SubmitText>
         </SubmitButton>
 
-        <Link onPress={ () => navigation.navigate('SignUp') }>
+        <Link onPress={() => navigation.navigate('SignUp')}>
           <LinkText>Criar uma conta</LinkText>
         </Link>
       </Container>
