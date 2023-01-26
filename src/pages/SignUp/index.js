@@ -4,7 +4,7 @@
 import React, { useState, useContext } from "react";
 import { Platform } from "react-native";
 import { Background, Container, AreaInput, Input, SubmitButton, SubmitText } from "./styles";
-import { AuthContext } from "../../context/auth";  //onde são armazenados os dados do usuário
+import { AuthContext } from "../../contexts/auth";  //onde são armazenados os dados do usuário
 
 
 export default function SignUp() {

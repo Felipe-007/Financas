@@ -15,7 +15,7 @@ import { View, StatusBar } from "react-native";
 import firebase from './src/services/firebaseConnection';
 import Routes from './src/routes';
 import { NavigationContainer } from '@react-navigation/native';
-import Authprovider from './src/context/auth';  //o authprovider repassa tudo o que tem dentro dele, e por causa do createContext ele poderá ter acesso ao valor do USER
+import Authprovider from './src/contexts/auth';  //o authprovider repassa tudo o que tem dentro dele, e por causa do createContext ele poderá ter acesso ao valor do USER
 
 export default function App() {
   return (

@@ -4,7 +4,7 @@
 import React, { useContext } from "react";
 import AppRoutes from "./app.routes";
 import AuthRoutes from "./auth.routes";
-import { AuthContext } from "../context/auth";  //pega daqui todos os dados do usuário
+import { AuthContext } from "../contexts/auth";  //pega daqui todos os dados do usuário
 
 function Routes() {
   const { signed } = useContext(AuthContext);  //const signed recebe useContext que passou os dados do usuario atraves do AuthContext
