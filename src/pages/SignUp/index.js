@@ -1,5 +1,5 @@
 /**
- * 
+ * Tela Cadastro
  */
 import React, { useState, useContext } from "react";
 import { Platform } from "react-native";
@@ -13,10 +13,11 @@ export default function SignUp() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const { user } = useContext(AuthContext)  //onde são armazenados os dados do usuário
+  const { signUp } = useContext(AuthContext);  //signUp funcao que vem do context/auth.js 
 
-  alert(user.nome)
-  alert(user.uid)
+  function handleSignUp(){
+    signUp(email, password, nome)
+  }
 
   return (
     <Background behavior={Platform.OS === 'ios' ? 'padding' : ''} enabled>
@@ -51,7 +52,7 @@ export default function SignUp() {
           />
         </AreaInput>
 
-        <SubmitButton>
+        <SubmitButton onPress={handleSignUp}>
           <SubmitText>Cadastrar</SubmitText>
         </SubmitButton>
       </Container>
