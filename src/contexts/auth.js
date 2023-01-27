@@ -15,10 +15,10 @@ function AuthProvider({ children }) {
 
   //quando o aplicativo for iniciado ele irá verificar se tem alguem logado aqui, 
   useEffect(() => {
-    async function loadStorage(){
+    async function loadStorage() {
       const storageUser = await AsyncStorage.getItem('Auth_user');  //procura dentro do AsyncStorage o Auth_user
 
-      if(storageUser){  //se tiver algum usuário dentro do AsyncStorage cai aqui
+      if (storageUser) {  //se tiver algum usuário dentro do AsyncStorage cai aqui
         setUser(JSON.parse(storageUser));  //passa para o setUser os valores de storageUser
         setLoading(false);
       }
@@ -76,13 +76,22 @@ function AuthProvider({ children }) {
   }
 
   //Função para manter o usuário logado
-  async function storageUser(data){
+  async function storageUser(data) {
     await AsyncStorage.setItem('Auth_user', JSON.stringify(data));  //salva dentro do AsyncStorage um objeto Auth_user com as propriedades do data(dados do usuário)
+  }
+
+  //Função para deslogar
+  async function signOut() {
+    await firebase.auth().signOut();
+    await AsyncStorage.clear()
+      .then(() => {
+        setUser(null);
+      })
   }
 
   return (
     //!!user converte o valor para booleano
-    <AuthContext.Provider value={{ signed: !!user, user, signUp, signIn, loading }}>
+    <AuthContext.Provider value={{ signed: !!user, user, signUp, signIn, signOut, loading }}>
       {children}
     </AuthContext.Provider>  //signUp, signIn, loading tbem será exportada, children faz com que todas as rotas tenham acesso a signUp
   )
