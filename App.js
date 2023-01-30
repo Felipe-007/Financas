@@ -8,6 +8,9 @@
  * expo install @react-navigation/stack
  * expo install @react-navigation/drawer
  * npx expo install react-native-gesture-handler
+ * expo install @react-navigation/drawer
+ * npx expo install react-native-gesture-handler react-native-reanimated
+ * expo start -c
  */
 import 'react-native-gesture-handler';
 import React from "react";

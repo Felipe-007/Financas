@@ -2,17 +2,24 @@
  * configurações de rota quando esta logado
  */
 import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 
 import Home from "../pages/Home";
 
-const AppStack = createStackNavigator();
+const AppDrawer = createDrawerNavigator();
 
-function AppRoutes(){
-  return(
-    <AppStack.Navigator>
-      <AppStack.Screen name="Home" component={Home} />
-    </AppStack.Navigator>
+function AppRoutes() {
+  return (
+    //configuração do estilo do menu lateral
+    <AppDrawer.Navigator
+      screenOptions={{
+        drawerStyle: {
+          backgroundColor: '#171717'
+        },//aqui        
+      }}
+    >
+      <AppDrawer.Screen name="Home" component={Home} />
+    </AppDrawer.Navigator>
   )
 }
 
