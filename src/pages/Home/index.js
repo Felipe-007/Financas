@@ -2,21 +2,24 @@
  * 
  */
 import React, { useContext } from "react";
-import { View, Text, Button } from "react-native";
 import { AuthContext } from "../../contexts/auth";  //onde são armazenados os dados do usuário
+import { Background, Container, Nome, Saldo, Title } from "./styles";
+import Header from "../../components/Header";  //menu de hamburger
 
 export default function Home() {
 
-  const { user, signOut } = useContext(AuthContext); //pega os dados do usuário
+  const { user } = useContext(AuthContext); //pega os dados do usuário
 
   return (
-    <View>
-      <Text>{user && user.nome}</Text>
-      <Text>{user && user.email}</Text>
-      <Button
-        title="Sair"
-        onPress={() => signOut()}
-      />
-    </View>
+    <Background>
+      <Header />
+
+      <Container>
+        <Nome>Felipe Lopes</Nome>
+        <Saldo>R$ 20,00</Saldo>
+      </Container>
+
+      <Title>Últimas movimentações</Title>
+    </Background>
   )
 }

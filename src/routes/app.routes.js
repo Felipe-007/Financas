@@ -30,7 +30,7 @@ function AppRoutes() {
         drawerInactiveTintColor: '#DDD',        
       }}
     >
-      <AppDrawer.Screen name="Home" component={Home}  />
+      <AppDrawer.Screen name="Home" component={Home} options={{ headerShown: false }} />
       <AppDrawer.Screen name="Registrar" component={New} options={{ headerShown: false }} />
       <AppDrawer.Screen name="Perfil" component={Profile} options={{ headerShown: false }} />
     </AppDrawer.Navigator>

@@ -8,6 +8,7 @@ import React, { useContext } from "react";
 import { Container, Nome, NewLink, NewText, LogOut, LogOutText } from "./styles";
 import { AuthContext } from "../../contexts/auth";
 import { useNavigation } from "@react-navigation/native";
+import Header from "../../components/Header";  //menu de hamburger
 
 export default function Profile() {
 
@@ -16,6 +17,7 @@ export default function Profile() {
 
   return (
     <Container>
+      <Header />
       <Nome>
         {user && user.nome}
       </Nome>
