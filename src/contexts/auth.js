@@ -12,6 +12,7 @@ export const AuthContext = createContext({});
 function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true);  //faz o loading
+  const [loadingAuth, setLoadingAuth] = useState(false);  //faz o icone do loading
 
   //quando o aplicativo for iniciado ele irá verificar se tem alguem logado aqui, 
   useEffect(() => {
@@ -31,6 +32,7 @@ function AuthProvider({ children }) {
 
   //Função para Logar o usuário
   async function signIn(email, password) {
+    setLoadingAuth(true);  //começa a carregar o icone de loading
     await firebase.auth().signInWithEmailAndPassword(email, password)
       .then(async (value) => {  //se der tudo certo cai no .then que pega os valores atraves do value
         let uid = value.user.uid;  //cria uid para pegar o id do usuario
@@ -44,15 +46,18 @@ function AuthProvider({ children }) {
 
             setUser(data);  //o setUser receberá os valores de data 
             storageUser(data);  //tbem recebe o data para poder salvar no AsyncStorage
+            setLoadingAuth(false);  //para de carregar o icone de loading
           })
       })
       .catch((error) => {
         alert(error.code);
+        setLoadingAuth(false);  //para de carregar o icone de loading
       });
   }
 
   //Cadastrar usuário
   async function signUp(email, password, nome) {
+    setLoadingAuth(true);  //começa a carregar o icone de loading
     await firebase.auth().createUserWithEmailAndPassword(email, password)
       .then(async (value) => {  //se der tudo certo cai no .then que pega os valores atraves do value
         let uid = value.user.uid;  //cria uid para pegar o id do usuario
@@ -68,10 +73,12 @@ function AuthProvider({ children }) {
             };
             setUser(data);  //o setUser receberá os valores de data
             storageUser(data);  //tbem recebe o data para poder salvar no AsyncStorage
+            setLoadingAuth(false);  //para de carregar o icone de loading
           })
       })
       .catch((error) => {
         alert(error.code);
+        setLoadingAuth(false);  //para de carregar o icone de loading
       });
   }
 
@@ -91,7 +98,7 @@ function AuthProvider({ children }) {
 
   return (
     //!!user converte o valor para booleano
-    <AuthContext.Provider value={{ signed: !!user, user, signUp, signIn, signOut, loading }}>
+    <AuthContext.Provider value={{ signed: !!user, user, signUp, signIn, signOut, loading, loadingAuth }}>
       {children}
     </AuthContext.Provider>  //signUp, signIn, loading tbem será exportada, children faz com que todas as rotas tenham acesso a signUp
   )

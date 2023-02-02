@@ -2,7 +2,7 @@
  * Tela Cadastro
  */
 import React, { useState, useContext } from "react";
-import { Platform } from "react-native";
+import { Platform, ActivityIndicator } from "react-native";
 import { Background, Container, AreaInput, Input, SubmitButton, SubmitText } from "./styles";
 import { AuthContext } from "../../contexts/auth";  //onde são armazenados os dados do usuário
 
@@ -13,7 +13,7 @@ export default function SignUp() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const { signUp } = useContext(AuthContext);  //signUp funcao que vem do context/auth.js 
+  const { signUp, loadingAuth } = useContext(AuthContext);  //signUp funcao que vem do context/auth.js 
 
   function handleSignUp() {
     signUp(email, password, nome)
@@ -31,7 +31,7 @@ export default function SignUp() {
             autoCorrect={false}
             autoCapitalize="none"
             value={nome}
-            onChangeText={ (text) => setNome(text) }
+            onChangeText={(text) => setNome(text)}
           />
         </AreaInput>
 
@@ -56,7 +56,13 @@ export default function SignUp() {
         </AreaInput>
 
         <SubmitButton onPress={handleSignUp}>
-          <SubmitText>Cadastrar</SubmitText>
+          {
+            loadingAuth ? (  //icone de carregar
+              <ActivityIndicator size={20} color="#FFF" />
+            ) : (
+              <SubmitText>Cadastrar</SubmitText>
+            )
+          }
         </SubmitButton>
       </Container>
     </Background>
