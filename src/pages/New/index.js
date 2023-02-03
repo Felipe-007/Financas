@@ -55,7 +55,7 @@ export default function New() {
     await firebase.database().ref('historico').child(uid).child(key).set({  //cria uma database historico com base no uid
       tipo: tipo,  //sera Receita ou Despesa
       valor: parseFloat(valor),
-      date: format(new Date(), 'dd/MM/yy')
+      date: format(new Date(), 'dd/MM/yyyy')
     })
 
     //Atualizar o nosso saldo

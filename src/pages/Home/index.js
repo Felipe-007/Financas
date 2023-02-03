@@ -7,7 +7,7 @@ import { Background, Container, Nome, Saldo, Title, List } from "./styles";
 import Header from "../../components/Header";  //menu de hamburger
 import HistoricoList from "../../components/HistoricoList";
 import firebase from "../../services/firebaseConnection";
-import { format, isPast } from 'date-fns';  //faz o controle e formatação das datas, isPast verifica se a data já passou
+import { format, isBefore } from 'date-fns';  //faz o controle e formatação das datas, isPast verifica se a data já passou
 import { Alert } from 'react-native';
 
 export default function Home() {
@@ -27,7 +27,7 @@ export default function Home() {
 
       await firebase.database().ref('historico')
         .child(uid)
-        .orderByChild('date').equalTo(format(new Date, 'dd/MM/yy'))
+        .orderByChild('date').equalTo(format(new Date, 'dd/MM/yyyy'))
         .limitToLast(10).on('value', (snapshot) => {  //limite de 10 por pagina
           setHistorico([]);  //zera a lista afim de evitar duplicidade
 
@@ -49,9 +49,23 @@ export default function Home() {
 
   //alerta para excluir
   function handleDelete(data) {
-    if (isPast(new Date(data.date))) {  //verifica se a data ja passou
-      //Se a data do registro já passou vai entrar aqui
-      alert('Você não pode excluir um registro antigo.')
+
+    //Pegando data do item:
+    const [diaItem, mesItem, anoItem] = data.date.split('/');
+    const dateItem = new Date(`${anoItem}/${mesItem}/${diaItem}`);
+    console.log(dateItem);
+
+    //Pegando data hoje:
+    const formatDiaHoje = format(new Date(), 'dd/MM/yyyy');
+    const [diaHoje, mesHoje, anoHoje] = formatDiaHoje.split('/');
+    const dateHoje = new Date(`${anoHoje}/${mesHoje}/${diaHoje}`);
+    console.log(dateHoje);
+
+
+
+    if (isBefore(dateItem, dateHoje)) {
+      // Se a data do registro já passou vai entrar aqui!
+      alert('Voce nao pode excluir um registro antigo!');
       return;
     }
 
