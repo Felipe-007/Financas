@@ -23,9 +23,16 @@ color: #FFF;
 font-weight: bold;
 `;
 
-export const Title = styled.Text`
+export const Area = styled.View`
+flex-direction: row;
 margin-left: 15px;
+align-items: flex-end;
 margin-bottom: 10px;
+`;
+
+export const Title = styled.Text`
+margin-left: 5px;
+margin-bottom: 5px;
 color: #00b94a;
 `;
 

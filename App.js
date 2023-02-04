@@ -12,6 +12,7 @@
  * npx expo install react-native-gesture-handler react-native-reanimated
  * expo install @react-native-picker/picker
  * expo install date-fns  //faz o controle e formatação das datas
+ * npx expo install @react-native-community/datetimepicker
  * expo start -c
  */
 import 'react-native-gesture-handler';

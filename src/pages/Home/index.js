@@ -1,14 +1,19 @@
 /**
+ * Pagina principal apos o login
  * 
+ * npx expo install @react-native-community/datetimepicker
  */
 import React, { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../../contexts/auth";  //onde são armazenados os dados do usuário
-import { Background, Container, Nome, Saldo, Title, List } from "./styles";
+import { Background, Container, Nome, Saldo, Title, List, Area } from "./styles";
 import Header from "../../components/Header";  //menu de hamburger
 import HistoricoList from "../../components/HistoricoList";
 import firebase from "../../services/firebaseConnection";
 import { format, isBefore } from 'date-fns';  //faz o controle e formatação das datas, isPast verifica se a data já passou
-import { Alert } from 'react-native';
+import { Alert, Platform, TouchableOpacity } from 'react-native';
+import { MaterialIcons } from '@expo/vector-icons';
+import DatePicker from "../../components/DatePicker";
+
 
 export default function Home() {
 
@@ -17,6 +22,9 @@ export default function Home() {
 
   const { user } = useContext(AuthContext); //pega os dados do usuário
   const uid = user && user.uid;  //traz o id do usuario
+
+  const [newDate, setNewDate] = useState(new Date());
+  const [show, setShow] = useState(false);  //faz o controle se esta aberta ou fechada a data
 
   //será executada quando o aplicativo iniciar
   useEffect(() => {
@@ -27,7 +35,7 @@ export default function Home() {
 
       await firebase.database().ref('historico')
         .child(uid)
-        .orderByChild('date').equalTo(format(new Date, 'dd/MM/yyyy'))
+        .orderByChild('date').equalTo(format(newDate, 'dd/MM/yyyy'))
         .limitToLast(10).on('value', (snapshot) => {  //limite de 10 por pagina
           setHistorico([]);  //zera a lista afim de evitar duplicidade
 
@@ -45,7 +53,7 @@ export default function Home() {
     }
 
     loadList();
-  }, []);
+  }, [newDate]);  //toda vez que a pagina for montada, ele ira monitorar a data
 
   //alerta para excluir
   function handleDelete(data) {
@@ -102,6 +110,21 @@ export default function Home() {
       })
   }
 
+  //faz o calendario aparecer
+  function handleShowPicker() {
+    setShow(true);
+  }
+
+  //quando o calendario fechar volta a ser falso
+  function handleClose() {
+    setShow(false);
+  }
+
+  const onChange = (date) => {
+    setShow(Platform.OS === 'ios');
+    setNewDate(date);    
+  }
+
   return (
     <Background>
       <Header />
@@ -111,7 +134,12 @@ export default function Home() {
         <Saldo>R$ {saldo.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')}</Saldo>
       </Container>
 
-      <Title>Últimas movimentações</Title>
+      <Area>
+        <TouchableOpacity onPress={handleShowPicker}>
+          <MaterialIcons name="event" size={30} color="#FFF" />
+        </TouchableOpacity>
+        <Title>Últimas movimentações</Title>
+      </Area>
 
       <List
         showVerticalScrollIndicator={false}
@@ -119,6 +147,15 @@ export default function Home() {
         keyExtractor={item => item.key}  //pega a key do item
         renderItem={({ item }) => (<HistoricoList data={item} deleteItem={handleDelete} />)}  //renderiza a pagina HistoricoList de acordo com o numero de elementos da lista, passando tbem a função deleteItem={handleDelete}
       />
+
+      {show && (  //o clicar faz o show ser verdadeiro, mostrando assim a data
+        <DatePicker
+          onClose={handleClose}
+          date={newDate}
+          onChange={onChange}
+        />
+      )}
+
     </Background>
   )
 }
